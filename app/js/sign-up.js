@@ -14,11 +14,31 @@ jQuery(function($){
 
   //Handle account availability
   $('.create-account input[name="login"]').on('change', function(e){
-    e.preventDefault();
     requestedLogin = $(e.target).val();
     $.get('/account_availability/'+requestedLogin, function(response) {
       var message = response.available ? "Available!" : "That name's taken :-(";
-      $(e.target).popover('destroy').popover({content: message}).popover('show');
+      displayPopover(e.target, message);
     });
   });
+
+  //Handle password confirmation
+  $('.create-account input[name="passwordConfirmation"]').on('change', function(e){
+    var password = $('.create-account input[name="password"]').val(),
+        passwordConfirmation = $(e.target).val();
+
+    if(password !== passwordConfirmation) {
+      displayPopover(e.target, "Uh oh! Double-check your password!");
+    } else {
+      clearPopover(e.target);
+    }
+  });
+
+  var displayPopover = function(el, message) {
+    $(el).popover('destroy').popover({content: message}).popover('show');
+  };
+
+  var clearPopover = function(el) {
+    $(el).popover('destroy');
+  };
+
 });
