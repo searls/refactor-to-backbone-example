@@ -14,6 +14,11 @@
 module.exports = require('lineman').config.extend('files', {
   //Override file patterns here
   js: {
+    app: [
+      "app/js/main.js",
+      "app/js/**/*.js"
+    ],
+
     vendor: [
       "vendor/js/jquery.js",
       "vendor/js/underscore.js",

@@ -1,31 +1,3 @@
-window.app = {};
-
-app.Router = Backbone.Router.extend({
-  routes: {
-    "accounts/new": "newAccount",
-    "*path": "defaultRoute"
-  },
-
-  initialize: function(){
-    this.$container = $('.container');
-  },
-
-  defaultRoute: function(){
-    this.navigate('accounts/new', {trigger: true});
-  },
-
-  newAccount: function(){
-    new app.SignUpView({
-      el: this.$container,
-      model: new app.SignUp()
-    }).render();
-  }
-});
-
-app.SignUp = Backbone.Model.extend({
-  urlRoot: "/accounts"
-});
-
 app.SignUpView = Backbone.View.extend({
   template: JST['app/templates/sign-up-form.us'],
 
@@ -68,19 +40,4 @@ app.SignUpView = Backbone.View.extend({
       app.ViewHelpers.clearPopover(e.target);
     }
   }
-});
-
-app.ViewHelpers = {
-  displayPopover: function(el, message) {
-    $(el).popover('destroy').popover({content: message}).popover('show');
-  },
-
-  clearPopover: function(el) {
-    $(el).popover('destroy');
-  }
-};
-
-jQuery(function($){
-  window.router = new app.Router();
-  Backbone.history.start();
 });
