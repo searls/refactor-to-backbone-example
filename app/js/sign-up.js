@@ -1,7 +1,17 @@
+window.app = {};
+
+app.SignUpView = Backbone.View.extend({
+  template: JST['app/templates/sign-up-form.us'],
+
+  render: function(){
+    this.$el.html(this.template());
+    return this;
+  }
+});
+
 jQuery(function($){
   // Render the view
-  var template = JST['app/templates/sign-up-form.us'];
-  $('.container').append(template());
+  new app.SignUpView({el: $('.container')}).render();
 
   // Update the URL
   window.location.hash = "accounts/new";
