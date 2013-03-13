@@ -22,5 +22,13 @@ module.exports = {
       console.log("Creating a user for", req.body);
       res.send(201);
     });
+
+    app.get('/account_availability/:name', function(req, res){
+      console.log("Checking availability for a user", req.params);
+
+      isAvailable = req.params.name === "joe";
+
+      res.send({available: isAvailable});
+    });
   }
 };

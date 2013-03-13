@@ -11,4 +11,14 @@ jQuery(function($){
     e.preventDefault();
     $.post('/accounts', $('.create-account form').serialize());
   });
+
+  //Handle account availability
+  $('.create-account input[name="login"]').on('change', function(e){
+    e.preventDefault();
+    requestedLogin = $(e.target).val();
+    $.get('/account_availability/'+requestedLogin, function(response) {
+      var message = response.available ? "Available!" : "That name's taken :-(";
+      $(e.target).popover('destroy').popover({content: message}).popover('show');
+    });
+  });
 });
