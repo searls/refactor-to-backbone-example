@@ -1,5 +1,24 @@
 window.app = {};
 
+app.Router = Backbone.Router.extend({
+  routes: {
+    "accounts/new": "newAccount",
+    "*path": "defaultRoute"
+  },
+
+  initialize: function(){
+    this.$container = $('.container');
+  },
+
+  defaultRoute: function(){
+    this.navigate('accounts/new', {trigger: true});
+  },
+
+  newAccount: function(){
+    new app.SignUpView({el: this.$container}).render();
+  }
+});
+
 app.SignUpView = Backbone.View.extend({
   template: JST['app/templates/sign-up-form.us'],
 
@@ -9,12 +28,10 @@ app.SignUpView = Backbone.View.extend({
   }
 });
 
-jQuery(function($){
-  // Render the view
-  new app.SignUpView({el: $('.container')}).render();
 
-  // Update the URL
-  window.location.hash = "accounts/new";
+jQuery(function($){
+  window.router = new app.Router();
+  Backbone.history.start();
 
   // Bind the events
   $('.create-account button').on('click', function(e){
