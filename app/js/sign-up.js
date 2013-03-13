@@ -35,7 +35,7 @@ app.SignUpView = Backbone.View.extend({
 
   createAccount: function(e){
     e.preventDefault();
-    $.post('/accounts', $('.create-account form').serialize());
+    $.post('/accounts', this.$('form').serialize());
   },
 
   checkAvailability: function(e){
