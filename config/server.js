@@ -12,10 +12,15 @@
  *
  */
 
+var express = require('./../node_modules/lineman/node_modules/express');
+
 module.exports = {
   drawRoutes: function(app) {
-    // app.get('/api/greeting/:message', function(req, res){
-    //   res.json({ message: "OK, "+req.params.message });
-    // });
+    app.use(express.bodyParser());
+
+    app.post('/accounts', function(req, res){
+      console.log("Creating a user for", req.body);
+      res.send(201);
+    });
   }
 };

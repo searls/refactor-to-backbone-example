@@ -1,0 +1,16 @@
+<div class="create-account">
+  <form>
+    <fieldset>
+      <legend>Sign Up</legend>
+      <label>User name</label>
+      <input type="text" name="login" placeholder="joeschmoe96">
+      <label>E-mail</label>
+      <input type="text" name="email" placeholder="jschmoe@gmail.com">
+      <label>Password</label>
+      <input type="password" name="password">
+      <label>Confirm Password</label>
+      <input type="password" name="passwordConfirmation">
+    </fieldset>
+    <button class="btn btn-primary">Create Account</button>
+  </form>
+</div>
