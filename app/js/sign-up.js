@@ -15,8 +15,15 @@ app.Router = Backbone.Router.extend({
   },
 
   newAccount: function(){
-    new app.SignUpView({el: this.$container}).render();
+    new app.SignUpView({
+      el: this.$container,
+      model: new app.SignUp()
+    }).render();
   }
+});
+
+app.SignUp = Backbone.Model.extend({
+  urlRoot: "/accounts"
 });
 
 app.SignUpView = Backbone.View.extend({
@@ -35,7 +42,12 @@ app.SignUpView = Backbone.View.extend({
 
   createAccount: function(e){
     e.preventDefault();
-    $.post('/accounts', this.$('form').serialize());
+
+    this.model.save({
+      login: this.$("input[name='login']").val(),
+      email: this.$("input[name='email']").val(),
+      password: this.$("input[name='password']").val()
+    });
   },
 
   checkAvailability: function(e){
