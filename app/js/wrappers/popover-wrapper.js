@@ -1,9 +1,9 @@
-app.ViewHelpers = {
-  displayPopover: function(el, message) {
+app.PopoverWrapper = {
+  display: function(el, message) {
     $(el).popover('destroy').popover({content: message}).popover('show');
   },
 
-  clearPopover: function(el) {
+  clear: function(el) {
     $(el).popover('destroy');
   }
 };

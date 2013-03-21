@@ -26,7 +26,7 @@ app.SignUpView = Backbone.View.extend({
     var requestedLogin = $(e.target).val();
     $.get('/account_availability/'+requestedLogin, function(response) {
       var message = response.available ? "Available!" : "That name's taken :-(";
-      app.ViewHelpers.displayPopover(e.target, message);
+      app.PopoverWrapper.display(e.target, message);
     });
   },
 
@@ -35,9 +35,9 @@ app.SignUpView = Backbone.View.extend({
         passwordConfirmation = $(e.target).val();
 
     if(password !== passwordConfirmation) {
-      app.ViewHelpers.displayPopover(e.target, "Uh oh! Double-check your password!");
+      app.PopoverWrapper.display(e.target, "Uh oh! Double-check your password!");
     } else {
-      app.ViewHelpers.clearPopover(e.target);
+      app.PopoverWrapper.clear(e.target);
     }
   }
 });
