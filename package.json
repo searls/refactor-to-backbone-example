@@ -8,6 +8,6 @@
     "company": "ACME, Inc."
   },
   "dependencies": {
-    "lineman": "~0.4.5"
+    "lineman": "~0.4.8"
   }
 }
