@@ -24,3 +24,23 @@ describe 'app.SignUpView', ->
       login: "joe"
       email: "joe@joe.com"
       password: "notreallyjoe"
+
+
+  Given -> spyOn(app.PopoverWrapper, 'display')
+  describe "#checkAvailability", ->
+    Given -> @$login = @subject.$el.affix('input[name="login"][value="fun!"]')
+    Given -> @event = fakeEvent('change', @$login[0])
+    Given -> spyOn($, 'get')
+    Given -> @ajaxCallback = jasmine.captor()
+    When -> @subject.checkAvailability(@event)
+    And -> expect($.get).toHaveBeenCalledWith('/account_availability/fun!', @ajaxCallback.capture())
+    And -> @ajaxCallback.value(available: @available)
+
+    context "~ the name is available", ->
+      Given -> @available = true
+      Then -> expect(app.PopoverWrapper.display).toHaveBeenCalledWith(@$login[0], "Available!")
+
+    context "~ the name is NOT available", ->
+      Given -> @available = false
+      Then -> expect(app.PopoverWrapper.display).toHaveBeenCalledWith(@$login[0], "That name's taken :-(")
+
