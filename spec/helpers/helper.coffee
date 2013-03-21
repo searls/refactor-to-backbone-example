@@ -7,3 +7,5 @@ root.fakeEvent = (type = 'click', target = undefined) ->
   _(new jQuery.Event(type)).extend
     preventDefault: jasmine.createSpy('#preventDefault')
     target: target
+
+root.any = jasmine.any

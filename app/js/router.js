@@ -14,7 +14,7 @@ app.Router = Backbone.Router.extend({
 
   newAccount: function(){
     new app.SignUpView({
-      el: this.$container,
+      el: this.$container[0],
       model: new app.SignUp()
     }).render();
   }
