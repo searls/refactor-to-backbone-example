@@ -1,5 +1,7 @@
 app.SignUpView = Backbone.View.extend({
-  template: JST['app/templates/sign-up-form.us'],
+  template: function(){
+    return JST['app/templates/sign-up-form.us'];
+  },
 
   events: {
     "click button": "createAccount",
