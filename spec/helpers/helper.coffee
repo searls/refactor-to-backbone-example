@@ -8,3 +8,4 @@ root.fakeEvent = (type) ->
     preventDefault: jasmine.createSpy('preventDefault')
 
 root.argThat = jasmine.argThat
+root.any = jasmine.any
