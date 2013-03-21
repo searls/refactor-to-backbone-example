@@ -44,3 +44,18 @@ describe 'app.SignUpView', ->
       Given -> @available = false
       Then -> expect(app.PopoverWrapper.display).toHaveBeenCalledWith(@$login[0], "That name's taken :-(")
 
+  describe "#confirmPassword", ->
+    Given -> @$password = @subject.$el.affix('input[name="password"][value="foo"]')
+    Given -> @$passwordConfirmation = @subject.$el.affix('input[name="passwordConfirmation"][value="foo"]')
+    Given -> @event = fakeEvent('change', @$passwordConfirmation[0])
+    When -> @subject.confirmPassword(@event)
+
+    context "matching passwords", ->
+      Given -> spyOn(app.PopoverWrapper, 'clear')
+      Then -> expect(app.PopoverWrapper.clear).toHaveBeenCalledWith(@$passwordConfirmation[0])
+
+    context "mismatching passwords", ->
+      Given -> @$passwordConfirmation.val("bar")
+      Then -> expect(app.PopoverWrapper.display).toHaveBeenCalledWith(@$passwordConfirmation[0], "Uh oh! Double-check your password!")
+
+
