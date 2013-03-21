@@ -1,5 +1,6 @@
 describe 'app.SignUpView', ->
-  Given -> @subject = new app.SignUpView
+  Given -> @model = {}
+  Given -> @subject = new app.SignUpView(model: @model)
 
   Then -> expect(@subject.events).toEqual
     "click button": "createAccount",
@@ -10,3 +11,16 @@ describe 'app.SignUpView', ->
     Given -> spyOn(JST, 'app/templates/sign-up-form.us').andReturn(-> '<div id="woot"/>')
     When -> @subject.render()
     Then -> @subject.$('#woot').length == 1
+
+  describe "#createAccount", ->
+    Given -> @subject.$el.affix('input[name="login"]').val('joe')
+    Given -> @subject.$el.affix('input[name="email"]').val('joe@joe.com')
+    Given -> @subject.$el.affix('input[name="password"]').val('notreallyjoe')
+    Given -> @model.save = jasmine.createSpy('save')
+    Given -> @event = fakeEvent()
+    When -> @subject.createAccount(@event)
+    Then -> expect(@event.preventDefault).toHaveBeenCalled()
+    Then -> expect(@model.save).toHaveBeenCalledWith
+      login: "joe"
+      email: "joe@joe.com"
+      password: "notreallyjoe"
